@@ -178,15 +178,13 @@ let alpineAttributeRegex = () => (new RegExp(`^${prefixAsString}([^:^.]+)\\b`))
 
 function toParsedDirectives(transformedAttributeMap, originalAttributeOverride) {
     return ({ name, value }) => {
-        let typeMatch = name.match(alpineAttributeRegex())
-        let valueMatch = name.match(/:([a-zA-Z0-9\-_:]+)/)
-        let modifiers = name.match(/\.[^.\]]+(?=[^\]]*$)/g) || []
+        const [type, valueMatch, ...modifiers] = name.slice(prefixAsString.length).split('-')
         let original = originalAttributeOverride || transformedAttributeMap[name] || name
 
         return {
-            type: typeMatch ? typeMatch[1] : null,
-            value: valueMatch ? valueMatch[1] : null,
-            modifiers: modifiers.map(i => i.replace('.', '')),
+            type,
+            value: valueMatch,
+            modifiers,
             expression: value,
             original,
         }
