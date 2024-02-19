@@ -1,4 +1,4 @@
-# Alpine.js - JSX Form
+# Alpine.js - JSX Fork
 
 Fork of [Alpine.js](https://github.com/alpinejs/alpine)
 
